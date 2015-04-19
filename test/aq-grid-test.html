@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Aqueduct</title>
+    <script src="http://localhost:9003/webcomponentsjs/webcomponents.min.js"></script>
+    <link rel="import" href="http://localhost:9003/elements/aq-grid.html">
+</head>
+<body>
+
+<h1>Aqueduct</h1>
+
+<aq-grid id="grid"
+        source="http://localhost:9003/items"
+        field="name1=label1&name2=label2">
+</aq-grid>
+
+<script>
+    suite('<aq-grid>', function() {
+        test('is grid', function() {
+            assert.isTrue(document.getElementById('grid'));
+        });
+    });
+</script>
+
+</body>
+</html>

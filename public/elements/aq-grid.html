@@ -1,0 +1,125 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../core-ajax/core-ajax.html">
+
+<polymer-element name="aq-grid" attributes="source,field">
+
+    <template>
+
+        <style>
+            table,th,td{
+                border:1px solid #666;
+            }
+            th{
+                background:#666;
+                color:#FFF;
+            }
+            table{
+                width:100%;
+                border-radius: 5px;
+                box-shadow: 2px 2px 3px #888888;
+                border-spacing: 0;
+                border-collapse: separate;
+            }
+            th,td{
+                padding:3px;
+            }
+        </style>
+
+        <core-ajax id="connection" auto url="{{source}}" handleAs="json"></core-ajax>
+        <table id="table"></table>
+
+    </template>
+
+    <script>
+        Polymer('aq-grid',{
+
+            //set default value
+            publish: {
+                source: "",
+                field:""
+            },
+
+            ready: function() {
+
+                var fields = []
+
+                //access attribute
+                if(this.field != undefined && this.field != "") {
+                    var query = this.field.split("&")
+                    for(var token in query){
+                        var item = new Object()
+                        item.field = query[token].split("=")[0];
+                        item.label = query[token].split("=")[1];
+                        fields.push(item)
+                    }
+                }
+
+                //find element with id
+                var ajax = this.$.connection
+                var table = this.$.table
+
+                var render = function(data){
+                    var renderedHead = false;
+                    for (var i in data){
+
+                        //render head
+                        if(!renderedHead) {
+                            var head = document.createElement("tr")
+                            for (var field in data[i]) {
+                                var column = document.createElement("th")
+
+                                if (fields.length === 0) {
+                                    var text = document.createTextNode(field)
+                                    column.appendChild(text)
+                                    head.appendChild(column)
+                                } else {
+                                    for (var item in fields) {
+                                        if (field == fields[item].field) {
+                                            var text = document.createTextNode(fields[item].label)
+                                            column.appendChild(text)
+                                            head.appendChild(column)
+                                        }
+                                    }
+                                }
+                            }
+                            table.appendChild(head)
+                            renderedHead = true
+                        }
+
+                        //render cell
+                        var row = document.createElement("tr")
+                        for(var field in data[i]){
+                            var column = document.createElement("td")
+
+                            if(fields.length === 0) {
+                                var text = document.createTextNode(data[i][field])
+                                column.appendChild(text)
+                                row.appendChild(column)
+                            }else{
+
+                                //define field to display
+                                for(var item in fields){
+                                    if(field == fields[item].field){
+                                        var text = document.createTextNode(data[i][field])
+                                        column.appendChild(text)
+                                        row.appendChild(column)
+                                    }
+                                }
+                            }
+                        }
+                        table.appendChild(row)
+                    }
+                }
+
+                //when it got response.
+                ajax.addEventListener("core-response",
+                    function(e) {
+                        var response = e.detail.response
+                        render(response)
+                    }
+                )
+            }
+
+        });
+    </script>
+</polymer-element>

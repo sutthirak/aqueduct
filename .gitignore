@@ -1,0 +1,7 @@
+node_modules/*
+npm-debug.log
+*.iml
+.idea/*
+bin/*
+log/*.log
+reports/*.xml
