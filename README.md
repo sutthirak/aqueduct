@@ -17,4 +17,4 @@ this command.
 
     npm start
     
-Now , content will be ready for serving with this url : `http:localhost:9003`
+Now , content will be ready for serving with this url : `http://localhost:9003`
