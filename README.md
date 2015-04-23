@@ -18,3 +18,11 @@ this command.
     npm start
     
 Now , content will be ready for serving with this url : `http://localhost:9003`
+
+## Build
+
+We can build for a distribution package with this command
+
+    npm run build
+    
+    
