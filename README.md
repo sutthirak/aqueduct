@@ -8,6 +8,10 @@ The name was come from the name of a water supply system of the Rome Empire.
 First , We have to install dependencies of this project with this command
 
     npm install
+
+or you can install it via bower with this command
+
+    bower install aq
     
 ## Preview
 
