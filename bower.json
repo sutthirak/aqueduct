@@ -1,10 +1,10 @@
 {
   "name": "Aqueduct",
-  "description": "",
+  "description": "HTML5 web component project.",
   "version": "0.1.0",
-  "homepage": "",
-  "license": "",
-  "private": true,
+  "homepage": "https://github.com/sutthirak/aqueduct",
+  "license": "GPL-2.0",
+  "private": false,
   "dependencies": {
     "polymer": "Polymer/polymer#~0.5.5",
     "core-ajax": "Polymer/core-ajax#~0.5.5"
